@@ -22,11 +22,11 @@ makeCacheMatrix <- function (x = matrix()) {
                 stop ("Sorry! Your Matrix must be square: NxN - N rows and N columns")
         }
         
-        #If the matrix is square, check if it is inversible
-        # A square matrix that does not have a matrix inverse is called SINGULAR matrix
+        #If the matrix is square, check if it is invertible.
+        # A square matrix that does not have a matrix inverse is called singular or  degenerate.
         # A matrix is singular if its determinant is 0. 
         if (det (x) ==0 ){
-                stop ("Sorry! This matrix is square but not inversible. Please try another square matrix")
+                stop ("Sorry! This matrix is square but not invertible. Please try another square matrix")
         }
         
         # Initialize the  inverse of the matrix to NULL
@@ -57,16 +57,16 @@ makeCacheMatrix <- function (x = matrix()) {
 cacheSolve <- function (x,...) {
         #### This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
         #### If the inverse has already been calculated (and the matrix has not changed), 
-        #### then the cachesolve should retrieve the inverse from the cache.
+        #### then the cacheSolve should retrieve the inverse from the cache.
         ################################################################
         ## ------- Example of test values:
         ##              > source("CacheMatrix.R")
         ##              > m1 <- matrix(c(1,0,30,40,1,3,45,3,4),3,3)
         ##              > x1 <- makeCacheMatrix(m1)
         ##              > cacheSolve(x1)
-        ##              > cacheSolve(x1)  : To get cached data when called a second time
+        ##              > cacheSolve(x1)  : Second call will return the value from the cache.
         ##
-        ##              > m2 <- matrix(c(1,1,1,1),2,2)  # Not an inversible matrix
+        ##              > m2 <- matrix(c(1,1,1,1),2,2)  # This matrix is not invertible, will get an error.
         ##              > x2 <- makeCacheMatrix(m2)
         ##              > cacheSolve(x2)
         ################################################################
@@ -82,7 +82,7 @@ cacheSolve <- function (x,...) {
         
         myMat <- x$get()             # If the inverse was not cached , get its value 
         matInv <- solve (myMat, ...) # Calculate the inverse
-        x$setInv(matInv)             # Cahe the inverse
+        x$setInv(matInv)             # Cache the inverse
         matInv                       # Return the inverse   
         
 }
